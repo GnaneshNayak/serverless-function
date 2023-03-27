@@ -1,0 +1,32 @@
+org: gnaneshnayak
+app: functions
+stage: gnanesh-portfolio
+service: functions
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: us-east-1
+  memorySize: 128
+  deploymentMethod: direct
+  lambdaHashingVersion: '20201221'
+
+functions:
+  headers:
+    handler: headers.handler
+    architecture: x86_64
+    events:
+
+  api:
+    handler: index.handler
+    architecture: arm64
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
